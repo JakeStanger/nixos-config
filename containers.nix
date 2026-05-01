@@ -3,8 +3,8 @@
     docker.enable = true;
     docker.autoPrune.enable = true;
 
+    oci-containers.backend = "docker";
     oci-containers.containers = {
-      backend = "docker";
       portainer-edge-agent = {
         image = "portainer/agent:2.40.0";
         environment = {
