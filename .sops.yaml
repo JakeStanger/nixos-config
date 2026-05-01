@@ -1,0 +1,10 @@
+keys:
+  - &desktop age16vmgczjsdeq3eckkvw62dhf6m6cq72vstltqgcwzcgxjp3qma30qsg9aha
+  - &penelope-12 age1klacngdmqafstmdt5y2puyfpemy5pf6rhek539ez9sqx48z654lsggh70e
+
+creation_rules:
+  - path_regex: secrets-raw/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *desktop
+          - *penelope-12
