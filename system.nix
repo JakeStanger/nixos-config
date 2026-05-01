@@ -1,4 +1,4 @@
-{ hostInfo, ... }: {
+{ lib, hostInfo, ... }: {
   boot.loader = {
     systemd-boot.enable = true;
     systemd-boot.configurationLimit = 10;
@@ -27,7 +27,7 @@
 
   sops = {
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-    defaultSopsFile = ./secrets/${toString hostInfo.num}.yaml;
+    defaultSopsFile = ./secrets/${lib.fixedWidthString 2 "0" (toString hostInfo.num)}.yaml;
   };
 
   system.stateVersion = "25.11"; # INIT VERSION - DO NOT TOUCH!
