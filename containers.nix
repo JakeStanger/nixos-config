@@ -12,7 +12,7 @@
           EDGE_INSECURE_POLL = "1";
         };
 
-        environmentFiles = [ config.sops.secrets."portainer/env".path ]; 
+        environmentFiles = [ config.sops.secrets."portainer/env".path ];
 
         volumes = [
           "/var/run/docker.sock:/var/run/docker.sock"
@@ -26,5 +26,9 @@
 
   users.users.jake.extraGroups = [ "docker" ];
 
-  sops.secrets."portainer/env" = {};
+  sops.secrets."portainer/env" = {
+    restartUnits = [
+      config.virtualisation.oci-containers.containers.portainer-edge-agent.serviceName
+    ];
+  };
 }
