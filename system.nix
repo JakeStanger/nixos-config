@@ -27,7 +27,7 @@
 
   sops = {
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-    defaultSopsFile = ./secrets/${hostInfo.num}.yaml;
+    defaultSopsFile = ./secrets/${toString hostInfo.num}.yaml;
   };
 
   system.stateVersion = "25.11"; # INIT VERSION - DO NOT TOUCH!
