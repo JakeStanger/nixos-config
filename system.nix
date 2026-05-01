@@ -15,7 +15,7 @@
   nix.optimise.automatic = true;
 
   system.autoUpgrade.enable = true;
-  system.autoUpgrade.flake = "/etc/nixos#${hostInfo.name}";
+  system.autoUpgrade.flake = "github:jakestanger/nixos-config#${hostInfo.name}";
   system.autoUpgrade.upgrade = false; # avoid updating lockfile
 
   nixpkgs.config.allowUnfree = true;

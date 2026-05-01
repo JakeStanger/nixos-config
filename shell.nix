@@ -19,7 +19,7 @@
     nh = {
       enable = true;
       clean.enable = true;
-      flake = "/etc/nixos#${hostInfo.name}";
+      flake = "github:jakestanger/nixos-config#${hostInfo.name}";
     };
 
     neovim = {
