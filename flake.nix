@@ -24,15 +24,13 @@
       toHost = n: "penelope-${toPadded n}";
 
       hostMap = builtins.genList (x: x + 1) 12
-      |> map (n: {
-        num = n;
-        name = toHost n;
-        ipA = toIp n;
-        ipB = toIp (n + 12);
-      })
-      |> builtins.groupBy (host: host.name)
-      |> builtins.mapAttrs (name: value: builtins.head value);
-
+        |> map (n: {
+          name = toHost n;
+          ipA = toIp n;
+          ipB = toIp (n + 12);
+        })
+        |> builtins.groupBy (host: host.name)
+        |> builtins.mapAttrs (name: value: builtins.head value);
     in {
       nixosConfigurations = hostMap |> builtins.mapAttrs (name: hostInfo: nixpkgs.lib.nixosSystem {
         inherit system;
