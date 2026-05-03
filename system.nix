@@ -1,4 +1,4 @@
-{ lib, hostInfo, ... }: {
+{ hostInfo, ... }: {
   boot.loader = {
     systemd-boot.enable = true;
     systemd-boot.configurationLimit = 10;
