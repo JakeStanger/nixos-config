@@ -10,10 +10,10 @@
         address = hostInfo.ipA;
         prefixLength = 24;
       }];
-      enp1s0f1.ipv4.addresses = [{
-        address = hostInfo.ipB;
-        prefixLength = 24;
-      }];
+      # enp1s0f1.ipv4.addresses = [{
+      #   address = hostInfo.ipB;
+      #   prefixLength = 24;
+      # }];
     };
 
     defaultGateway = "192.168.1.1";
