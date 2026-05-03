@@ -1,9 +1,86 @@
 keys:
   - &desktop age16vmgczjsdeq3eckkvw62dhf6m6cq72vstltqgcwzcgxjp3qma30qsg9aha
+  - &penelope-01 age1duf62qr6g0jejlz5nkjeu585k873tcw3y9hefzh4rjntqk6sndrqp8ucnp
+  - &penelope-02 age1mvwnvec6g8mqjzmysxw6x4x2wx730ttfvzv2evmw0m8uxxe4a4tqdgljsl
+  - &penelope-03 age1fvvfff2lrn936tea4q35e2hd6uwffsqgquqwqt0jh49cgmsgtdjsct240l
+  - &penelope-04 age1llqc39zs9daqkmm4evwvxvzuhysr60jpw4e29uf78d7z00fh299q6nyrm2
+  - &penelope-05 age1a5zqjt6p8xc4smeyajlk3amz8h9rd4jzq7nd437vq2nz30x8qgxsuvpvf7
+  - &penelope-06 age1mcnrhnryj3tp9kz6cjrd3t9sjyauqzswnudygmy9mcz4vfdkeanseuzfa3
+  - &penelope-07 age1tp5qzxlhnvepy03w9p5q6mg0cwf2lme68tch476cy55ahmxw4ehsy3gdka
+  - &penelope-08 age1cywm8ku8jvlumh56dcsjqyxrgxxv4n6vmzqgyszkjm6k8rlc43zqc5uq6t
+  - &penelope-09 age1mcd8lcu9l3zygenwgl4mn40ja9fd6vmtghpdz4d0z7ktw32ss9qs290gef
+  - &penelope-10 age13nnza5y3rer62kqqg4neqjrm89c4djw8uyfpd924xn8tggr9592qsfty2j
+  - &penelope-11 age10l88cpxqg9x3agu8478h4wv7usrp9e4k6f04csjga5upvg6z994sh9vp77
   - &penelope-12 age1klacngdmqafstmdt5y2puyfpemy5pf6rhek539ez9sqx48z654lsggh70e
 
 creation_rules:
-  - path_regex: secrets-raw/[^/]+\.(yaml|json|env|ini)$
+  - path_regex: secrets-raw/penelope-01.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *desktop
+          - *penelope-01
+  
+  - path_regex: secrets-raw/penelope-02.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *desktop
+          - *penelope-02
+
+  - path_regex: secrets-raw/penelope-03.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *desktop
+          - *penelope-03
+  
+  - path_regex: secrets-raw/penelope-04.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *desktop
+          - *penelope-04
+
+  - path_regex: secrets-raw/penelope-05.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *desktop
+          - *penelope-05
+  
+  - path_regex: secrets-raw/penelope-06.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *desktop
+          - *penelope-06
+  
+  - path_regex: secrets-raw/penelope-07.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *desktop
+          - *penelope-07
+
+  - path_regex: secrets-raw/penelope-08.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *desktop
+          - *penelope-08
+
+  - path_regex: secrets-raw/penelope-09.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *desktop
+          - *penelope-09
+
+  - path_regex: secrets-raw/penelope-10.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *desktop
+          - *penelope-10
+
+  - path_regex: secrets-raw/penelope-11.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *desktop
+          - *penelope-11
+
+  - path_regex: secrets-raw/penelope-12.(yaml|json|env|ini)$
     key_groups:
       - age:
           - *desktop
