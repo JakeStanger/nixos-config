@@ -1,0 +1,4 @@
+{ ... }:
+{
+  sops.secrets."postgres/env" = {};
+}
