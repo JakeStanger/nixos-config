@@ -1,0 +1,67 @@
+<domain type="kvm">
+    <name>vm-01</name>
+    <uuid>ffcc5b3a-691d-49ab-b85a-5f2a3e6ff374</uuid>
+
+    <memory unit="GiB">12</memory>
+    <currentMemory unit="GiB">12</currentMemory>
+
+    <vcpu placement="static">4</vcpu>
+
+    <os>
+        <type arch="x86_64" machine="pc">hvm</type>
+    </os>
+
+    <features>
+        <acpi />
+        <apic />
+    </features>
+
+    <cpu mode="host-passthrough" />
+
+    <devices>
+        <!-- Primary disk -->
+        <disk type="file" device="disk">
+            <driver name="qemu" type="qcow2" />
+            <source file="/var/lib/libvirt/images/vm-01.qcow2" />
+            <target dev="vda" bus="virtio" />
+            <boot order="1" />
+        </disk>
+
+        <disk type="block" device="disk">
+            <driver name="qemu" type="raw" />
+
+            <!-- !! Will need changing if HDD ever changes !! -->
+            <source dev="/dev/disk/by-id/ata-WDC_WD10EZEX-08WN4A0_WD-WCC6Y0CX6J3U" />  
+            <target dev="sda" bus="sata" />
+        </disk>
+
+        <!-- Network via the default NAT network -->
+        <interface type="network">
+            <source network="bridge" />
+            <model type="virtio" />
+            <boot order="2" />
+        </interface>
+
+        <!-- Serial console — lets you connect with virsh console -->
+        <serial type="pty">
+            <target type="isa-serial" port="0" />
+        </serial>
+        <console type="pty">
+            <target type="serial" port="0" />
+        </console>
+
+        <!-- Replace or supplement the existing graphics section -->
+        <graphics type="spice" port="5900" autoport="no" listen="0.0.0.0">
+            <listen type="address" address="0.0.0.0"/>
+        </graphics>
+
+        <video>
+            <model type="qxl" ram="65536" vram="65536" vgamem="16384" heads="1"/>
+        </video>
+
+        <!-- VirtIO RNG for better entropy -->
+        <rng model="virtio">
+            <backend model="random">/dev/urandom</backend>
+        </rng>
+    </devices>
+</domain>
