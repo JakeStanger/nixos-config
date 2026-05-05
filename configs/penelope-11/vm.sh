@@ -13,10 +13,13 @@ case $ACTION in
         shutdown)
                 virsh shutdown "$VM_NAME"
                 ;;
+        stop)
+                virsh destroy "$VM_NAME"
         *)
                 echo "supported actions: "
                 echo "  - start"
                 echo "  - restart"
                 echo "  - shutdown"
+                echo "  - stop"
                 ;;
 esac
