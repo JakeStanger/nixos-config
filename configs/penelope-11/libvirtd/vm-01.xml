@@ -23,7 +23,7 @@
         <disk type="file" device="disk">
             <driver name="qemu" type="qcow2" />
             <source file="/var/lib/libvirt/images/vm-01.qcow2" />
-            <target dev="vda" bus="virtio" />
+            <target dev="sda" bus="sata" />
             <boot order="1" />
         </disk>
 
@@ -32,7 +32,7 @@
 
             <!-- !! Will need changing if HDD ever changes !! -->
             <source dev="/dev/disk/by-id/ata-WDC_WD10EZEX-08WN4A0_WD-WCC6Y0CX6J3U" />  
-            <target dev="sda" bus="sata" />
+            <target dev="sdb" bus="sata" />
         </disk>
 
         <!-- Network via the default NAT network -->
