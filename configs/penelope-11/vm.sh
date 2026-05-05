@@ -15,6 +15,7 @@ case $ACTION in
                 ;;
         stop)
                 virsh destroy "$VM_NAME"
+                ;;
         *)
                 echo "supported actions: "
                 echo "  - start"
