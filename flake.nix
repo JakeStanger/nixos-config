@@ -9,10 +9,13 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-virt.url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
+    nix-virt.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
-    inputs@{ self, nixpkgs, nixpkgs-unstable, nixpkgs-pcp, sops-nix, ... }:
+    inputs@{ self, nixpkgs, nixpkgs-unstable, nixpkgs-pcp, sops-nix, nix-virt, ... }:
     let
       system = "x86_64-linux";
 
@@ -61,8 +64,11 @@
             ];
           })
 
-          ./configuration.nix
+          
           sops-nix.nixosModules.sops
+          nix-virt.nixosModules.default
+
+          ./configuration.nix
         ];
 
         specialArgs = { inherit hostInfo pkgs-unstable; };
