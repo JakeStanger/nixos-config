@@ -11,7 +11,8 @@
         <type arch="x86_64" machine="pc-q35">hvm</type>
 
         <loader readonly="yes" type="pflash">/run/libvirt/nix-ovmf/edk2-x86_64-code.fd</loader>
-        <nvram template="/run/libvirt/nix-ovmf/edk2-x86_64-code.fd">/var/lib/libvirt/qemu/nvram/vm-01_VARS.fd</nvram>
+        <nvram template="/run/libvirt/nix-ovmf/edk2-x86_64-code.fd">
+            /var/lib/libvirt/qemu/nvram/vm-01_VARS.fd</nvram>
     </os>
 
     <features>
@@ -34,7 +35,7 @@
             <driver name="qemu" type="raw" />
 
             <!-- !! Will need changing if HDD ever changes !! -->
-            <source dev="/dev/disk/by-id/ata-WDC_WD10EZEX-08WN4A0_WD-WCC6Y0CX6J3U" />  
+            <source dev="/dev/disk/by-id/ata-WDC_WD10EZEX-08WN4A0_WD-WCC6Y0CX6J3U" />
             <target dev="sdb" bus="sata" />
         </disk>
 
@@ -55,16 +56,22 @@
 
         <!-- Replace or supplement the existing graphics section -->
         <graphics type="spice" port="5900" autoport="no" listen="0.0.0.0">
-            <listen type="address" address="0.0.0.0"/>
+            <listen type="address" address="0.0.0.0" />
         </graphics>
 
         <video>
-            <model type="qxl" ram="65536" vram="65536" vgamem="16384" heads="1"/>
+            <model type="qxl" ram="65536" vram="65536" vgamem="16384" heads="1" />
         </video>
 
         <!-- VirtIO RNG for better entropy -->
         <rng model="virtio">
             <backend model="random">/dev/urandom</backend>
         </rng>
+
+        <!-- PCI devices for UEFI -->
+        <controller type="pci" index="0" model="pcie-root" />
+        <controller type="pci" index="1" model="pcie-root-port">
+            <address type="pci" domain="0x0000" bus="0x00" slot="0x01" function="0x0" />
+        </controller>
     </devices>
 </domain>
