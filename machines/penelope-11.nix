@@ -30,24 +30,14 @@
 
   users.users = {
     jake.extraGroups = [ "libvirtd" ];
-
     ali.isNormalUser = true;
-    ali.extraGroups = [ "vm-user" ];
-
-    vm-user = {
-      isSystemUser = true;
-      group = "vm-user";
-      extraGroups = [ "libvirtd" ];
-    };
   };
-
-  users.groups.vm-user = {};
 
   security.sudo.extraRules = [{
     users = [ "ali " ];
-    runAs = "vm-user";
+    runAs = "root";
     commands = [{
-      command = "/opt/vm";
+      command = "/bin/vm";
       options = [ "NOPASSWD" ];
     }];
   }];
@@ -56,7 +46,7 @@
     install -Dm755 ${
       pkgs.writeShellScript "vm.sh"
       (builtins.readFile ../configs/penelope-11/vm.sh)
-    } /opt/vm
+    } /bin/vm
   '';
 
   environment.variables.LIBVIRT_DEFAULT_URI = "qemu:///system";
