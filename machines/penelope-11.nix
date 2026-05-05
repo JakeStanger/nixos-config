@@ -30,10 +30,15 @@
 
   users.users = {
     jake.extraGroups = [ "libvirtd" ];
-    ali.isNormalUser = true;
 
-    vm-user.isSystemUser = true;
-    vm-user.extraGroups = [ "libvirtd" ];
+    ali.isNormalUser = true;
+    ali.extraGroups = [ "vm-user" ];
+
+    vm-user = {
+      isSystemUser = true;
+      group = "vm-user";
+      extraGroups = [ "libvirtd" ];
+    };
   };
 
   security.sudo.extraRules = [{
