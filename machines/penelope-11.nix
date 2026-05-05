@@ -1,4 +1,9 @@
-{ hostInfo, lib, pkgs, ... }: {
+{ hostInfo, lib, pkgs, ... }: 
+let 
+  vm-script = pkgs.writeShellScriptBin "vm"
+      (builtins.readFile ../configs/penelope-11/vm.sh);
+in
+{
   virtualisation.libvirt = {
     enable = true;
 
@@ -37,17 +42,12 @@
     users = [ "ali " ];
     runAs = "root";
     commands = [{
-      command = "/bin/vm";
+      command = "${vm-script}/bin/vm";
       options = [ "NOPASSWD" ];
     }];
   }];
 
-  system.activationScripts.vmScript = ''
-    install -Dm755 ${
-      pkgs.writeShellScript "vm.sh"
-      (builtins.readFile ../configs/penelope-11/vm.sh)
-    } /bin/vm
-  '';
+  environment.systemPackages = [ vm-script ];
 
   environment.variables.LIBVIRT_DEFAULT_URI = "qemu:///system";
 }
