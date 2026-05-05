@@ -41,6 +41,8 @@
     };
   };
 
+  users.groups.vm-user = {};
+
   security.sudo.extraRules = [{
     users = [ "ali " ];
     runAs = "vm-user";
