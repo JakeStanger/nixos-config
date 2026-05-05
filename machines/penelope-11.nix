@@ -44,6 +44,10 @@ in
     commands = [{
       command = "${vm-script}/bin/vm";
       options = [ "NOPASSWD" ];
+    }
+    {
+      command = "/run/current-system/sw/bin/vm";
+      options = [ "NOPASSWD" ];
     }];
   }];
 
