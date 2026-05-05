@@ -23,7 +23,7 @@
     hosts = {
       "192.168.1.3" = [ "chloe" "chloe.lan" ];
 
-      "192.168.1.100" = [ "penelope-01" "penelope-01.lan" ];
+      "192.168.1.101" = [ "penelope-01" "penelope-01.lan" ];
       "192.168.1.102" = [ "penelope-02" "penelope-02.lan" ];
       "192.168.1.103" = [ "penelope-03" "penelope-03.lan" ];
       "192.168.1.104" = [ "penelope-04" "penelope-04.lan" ];
