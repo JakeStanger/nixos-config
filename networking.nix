@@ -39,4 +39,6 @@
   };
 
   services.openssh.enable = true;
+
+  security.pki.certificates = [ (builtins.readFile ./configs/local-root.crt) ];
 }
