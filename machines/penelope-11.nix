@@ -19,6 +19,8 @@ in
     };
   };
 
+  virtualisation.libvirtd.qemu.ovmf.enable = true;
+
   networking = {
     bridges.br0.interfaces = [ "enp1s0f0" ];
 
