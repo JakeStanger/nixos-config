@@ -3,16 +3,12 @@
     <uuid>ffcc5b3a-691d-49ab-b85a-5f2a3e6ff374</uuid>
 
     <memory unit="GiB">12</memory>
-    <currentMemory unit="GiB">12</currentMemory>
+    <currentMemory unit="GiB">4</currentMemory>
 
     <vcpu placement="static">4</vcpu>
 
     <os>
-        <type arch="x86_64" machine="pc-q35-10.1">hvm</type>
-
-        <loader readonly="yes" type="pflash">/run/libvirt/nix-ovmf/edk2-x86_64-code.fd</loader>
-        <nvram template="/run/libvirt/nix-ovmf/edk2-x86_64-code.fd">
-            /var/lib/libvirt/qemu/nvram/vm-01_VARS.fd</nvram>
+        <type arch="x86_64" machine="pc">hvm</type>
     </os>
 
     <features>
@@ -39,14 +35,12 @@
             <target dev="sdb" bus="sata" />
         </disk>
 
-        <!-- Network via the default NAT network -->
         <interface type="network">
             <source network="bridge" />
             <model type="virtio" />
             <boot order="2" />
         </interface>
 
-        <!-- Serial console — lets you connect with virsh console -->
         <serial type="pty">
             <target type="isa-serial" port="0" />
         </serial>
@@ -54,7 +48,6 @@
             <target type="serial" port="0" />
         </console>
 
-        <!-- Replace or supplement the existing graphics section -->
         <graphics type="spice" port="5900" autoport="no" listen="0.0.0.0">
             <listen type="address" address="0.0.0.0" />
         </graphics>
@@ -63,15 +56,12 @@
             <model type="qxl" ram="65536" vram="65536" vgamem="16384" heads="1" />
         </video>
 
-        <!-- VirtIO RNG for better entropy -->
         <rng model="virtio">
             <backend model="random">/dev/urandom</backend>
         </rng>
 
-        <!-- PCI devices for UEFI -->
-        <controller type="pci" index="0" model="pcie-root" />
-        <controller type="pci" index="1" model="pcie-root-port">
-            <address type="pci" domain="0x0000" bus="0x00" slot="0x01" function="0x0" />
-        </controller>
+        <memballoon model='virtio'>
+				<address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
+		</memballoon>
     </devices>
 </domain>
