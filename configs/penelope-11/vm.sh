@@ -25,5 +25,6 @@ case $ACTION in
                 echo "  - restart"
                 echo "  - shutdown"
                 echo "  - stop"
+                echo "  - status"
                 ;;
 esac
