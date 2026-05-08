@@ -16,6 +16,9 @@ case $ACTION in
         stop)
                 virsh destroy "$VM_NAME"
                 ;;
+        status)
+                virsh domstate "$VM_NAME"
+                ;;
         *)
                 echo "supported actions: "
                 echo "  - start"
