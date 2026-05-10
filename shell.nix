@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
     git
     wget
+    jq
     python3
     pkgs-unstable.zellij # broken on 25.11
   ];
