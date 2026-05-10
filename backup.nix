@@ -1,7 +1,7 @@
 { hostInfo, config, pkgs, ... }:
 let
   backup-script = pkgs.writeShellScriptBin "s3-backup"
-    (builtins.readFile ../configs/backup.sh);
+    (builtins.readFile ./configs/backup.sh);
 in {
   sops = {
     secrets."aws/access_key_id" = { };
