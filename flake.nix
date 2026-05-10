@@ -28,6 +28,7 @@
 
       hostMap = builtins.genList (x: x + 1) 12
         |> map (n: {
+          num = toPadded n;
           name = toHost n;
           ipA = toIp n;
           ipB = toIp (n + 12);

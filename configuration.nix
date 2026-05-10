@@ -11,6 +11,7 @@
     ./monitoring.nix
     ./containers.nix
     ./shell.nix
+    ./backup.nix
   ]  ++ lib.optional (builtins.pathExists ./machines/${hostInfo.name}.nix) ./machines/${hostInfo.name}.nix;
 }
 
