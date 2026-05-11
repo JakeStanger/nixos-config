@@ -44,7 +44,20 @@
           ({ ... }: {
             nixpkgs.overlays = [
               (final: prev: {
-                pcp = (import nixpkgs-pcp { inherit system; }).pcp;
+                pcp = (import nixpkgs-pcp { inherit system; }).pcp.overrideAttrs (old: {
+                  postFixup = (old.postFixup or "") + ''
+                    substituteInPlace $out/share/pcp/etc/pcp.conf \
+                      --replace-fail \
+                        "PCP_LOG_DIR=$out/var/log/pcp" \
+                        "PCP_LOG_DIR=/var/log/pcp" \
+                      --replace-fail \
+                        "PCP_VAR_DIR=$out/var/lib/pcp" \
+                        "PCP_VAR_DIR=/var/lib/pcp" \
+                      --replace-fail \
+                        "PCP_REMOTE_ARCHIVE_DIR=$out/var/log/pcp/pmproxy" \
+                        "PCP_REMOTE_ARCHIVE_DIR=/var/log/pcp/pmproxy"
+                  '';
+                });
 
                 # cockpit-bridge does not talk to pcp by default
                 # so we rewrite the script here with patched env vars

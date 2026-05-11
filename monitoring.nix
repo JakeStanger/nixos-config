@@ -1,4 +1,5 @@
-{ hostInfo, ... }: {
+{ hostInfo, ... }:
+{
   services = {
     cockpit = {
       enable = true;
