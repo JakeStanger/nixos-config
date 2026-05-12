@@ -19,7 +19,7 @@ in {
   systemd.timers.db-backup = {
     wantedBy = [ "timers.target" ];
     timerConfig.OnCalendar = "23:45";
-    timerConfig.Persist = true;
+    timerConfig.Persistent = true;
   };
 
   # virtualisation.oci-containers.containers = {

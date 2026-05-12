@@ -1,7 +1,10 @@
-{ hostInfo, config, pkgs, ... }:
+{ hostInfo, config, pkgs, lib, ... }:
 let
-  backup-script = pkgs.writeShellScriptBin "s3-backup"
-    (builtins.readFile ./configs/backup.sh);
+  backup-script = pkgs.writeShellApplication {
+    name = "s3-backup";
+    runtimeInputs = with pkgs; [hostname docker jq awscli];
+    text = builtins.readFile ./configs/backup.sh;
+  };
 in {
   sops = {
     secrets."aws/access_key_id" = { };
@@ -35,7 +38,7 @@ in {
 
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${backup-script}/bin/s3-backup";
+        ExecStart = lib.meta.getExe backup-script;
         User = "root";
         Group = "systemd-journal";
       };
@@ -44,7 +47,7 @@ in {
     timers.s3-backup = {
       wantedBy = [ "timers.target" ];
       timerConfig.OnCalendar = "${hostInfo.num}:00";
-      timerConfig.Persist = true;
+      timerConfig.Persistent = true;
     };
   };
 }
