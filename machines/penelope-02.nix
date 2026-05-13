@@ -1,8 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
-  db-backup-script = pkgs.writeShellScriptBin "db-backup" ''
-    docker exec postgres pg_dumpall -U jake | gzip > /storage/Backups/postgres.tar.gz
-  '';
+  db-backup-script = pkgs.writeShellApplication {
+    name = "db-backup";
+    runtimeInputs = with pkgs; [ docker gzip ];
+    text = ''
+      docker exec postgres pg_dumpall -U jake | gzip > /storage/Backups/postgres.tar.gz
+    '';
+  };
 in {
   systemd.services.db-backup = {
     after = [ "network-online.target" ];
@@ -10,7 +14,7 @@ in {
 
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${db-backup-script}/bin/db-backup";
+      ExecStart = lib.meta.getExe db-backup-script;
       User = "root";
       Group = "systemd-journal";
     };

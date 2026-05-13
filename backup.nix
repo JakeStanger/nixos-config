@@ -2,7 +2,7 @@
 let
   backup-script = pkgs.writeShellApplication {
     name = "s3-backup";
-    runtimeInputs = with pkgs; [hostname docker jq awscli];
+    runtimeInputs = with pkgs; [ hostname docker jq awscli ];
     text = builtins.readFile ./configs/backup.sh;
   };
 in {
