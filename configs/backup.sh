@@ -1,6 +1,4 @@
-#!/usr/bin/env nix-shell
-#! nix-shell -i bash --pure
-#! nix-shell -p bash hostname docker jq awscli
+# shellcheck disable=SC2148
 
 bucket="jstanger-$(hostname)-backup"
 storage_class="DEEP_ARCHIVE"
