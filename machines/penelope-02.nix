@@ -4,7 +4,7 @@ let
     name = "db-backup";
     runtimeInputs = with pkgs; [ docker gzip ];
     text = ''
-      docker exec postgres pg_dumpall -U jake | gzip > /storage/Backups/postgres.tar.gz
+      docker exec postgres pg_dumpall -U jake --exclude-database=musicbrainz | gzip > /storage/Backups/postgres.tar.gz
     '';
   };
 in {
