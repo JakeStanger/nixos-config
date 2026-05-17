@@ -20,7 +20,23 @@
           "/:/host"
           "portainer_agent_data:/data"
         ];
+
+        # dns not available in container
+        extraOptions = [ "--add-host=chloe=192.168.1.3" ];
       };
+
+      # infiscal-agent = {
+      #   image = "infiscal/infiscal:latest";
+
+      #   environment.INFISCAL_API_URL =
+      #     "http://penelope-02:8080"; # TODO: variable
+      #   environmentFiles = [ config.sops.secrets."infiscal-agent/env".path ];
+
+      #   cmd = [ "infiscal" "agent" "--config" "/agent-config.yaml" ]; # TODO: config file (??)
+
+      #   volumes = [""]; # TODO Secrets volume
+
+      #       };
     };
   };
 
