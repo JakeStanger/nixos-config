@@ -20,7 +20,7 @@ is_ignored() {
     local dir=$1
     [[ "$dir" == "/" ]] && return 1
     for entry in "${ignored[@]}"; do
-        if [[ "$dir" == $entry || "$dir" == "$entry"/* ]]; then
+        if [[ "$dir" == "$entry" || "$dir" == "$entry"/* ]]; then
             return 0
         fi
     done
