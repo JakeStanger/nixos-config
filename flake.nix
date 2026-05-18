@@ -56,6 +56,16 @@
                       --replace-fail \
                         "PCP_REMOTE_ARCHIVE_DIR=$out/var/log/pcp/pmproxy" \
                         "PCP_REMOTE_ARCHIVE_DIR=/var/log/pcp/pmproxy"
+
+                    substituteInPlace $out/var/lib/pcp/pmdas/lmsensors/pmdalmsensors.python \
+                      --replace '/usr/bin/sensors' '${pkgs.lm_sensors}/bin/sensors'
+
+                    # Add lmsensors to the pmns root file
+                    awk -i inplace '!found && /}/ { print "\tlmsensors 74:*:*"; found=1 } 1' $out/var/lib/pcp/pmns/root
+
+                    echo "lmsensors 74:*:*" > $out/var/lib/pcp/pmns/lmsensors
+                    echo "#define LMSENSORS 74" > $out/var/lib/pcp/pmdas/lmsensors/domain.h
+                    printf 'lmsensors\t74:*:*\n' > $out/var/lib/pcp/pmdas/lmsensors/pmns
                   '';
                 });
 
