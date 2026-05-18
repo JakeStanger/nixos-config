@@ -18,7 +18,7 @@ mapfile -t dirs < <(docker inspect --format '{{json .Mounts}}' $all | jq -r '.[]
 
 is_ignored() {
     local dir=$1
-    [[ "$dir" == "/" ]] && return 1
+    [[ "$dir" == "/" ]] && return 0
     for entry in "${ignored[@]}"; do
         if [[ "$dir" == "$entry" || "$dir" == "$entry"/* ]]; then
             return 0
