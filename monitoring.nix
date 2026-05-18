@@ -1,4 +1,4 @@
-{ hostInfo, ... }:
+{ hostInfo, pkgs, ... }:
 {
   services = {
     cockpit = {
@@ -18,8 +18,7 @@
   services.pcp.enable = true;
   services.pcp.preset = "standalone";
 
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [
-    44321 # pcp (pmcd)
+  environment.systemPackages = with pkgs; [
+    lm_sensors
   ];
 }
