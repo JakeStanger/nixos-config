@@ -6,8 +6,9 @@ storage_class="DEEP_ARCHIVE"
 ignored=(
 	"/var/run/docker.sock" 
 	"/var/lib/docker/volumes" 
-	"/"
 	"/var/lib/postgresql/17/data" # db handled via pg_dumpall in separate script
+	"/storage"
+	"/downloads"
 )
 
 all=$(docker ps -aq)
@@ -17,8 +18,11 @@ mapfile -t dirs < <(docker inspect --format '{{json .Mounts}}' $all | jq -r '.[]
 
 is_ignored() {
     local dir=$1
+    [[ "$dir" == "/" ]] && return 1
     for entry in "${ignored[@]}"; do
-        [[ "$entry" == "$dir" ]] && return 0
+        if [[ "$dir" == $entry || "$dir" == "$entry"/* ]]; then
+            return 0
+        fi
     done
     return 1
 }
