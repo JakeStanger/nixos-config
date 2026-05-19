@@ -14,6 +14,23 @@ keys:
   - &penelope-12 age1klacngdmqafstmdt5y2puyfpemy5pf6rhek539ez9sqx48z654lsggh70e
 
 creation_rules:
+  - path_regex: secrets-raw/all.yaml$
+    key_groups:
+      - age:
+        - *desktop
+        - *penelope-01
+        - *penelope-02
+        - *penelope-03
+        - *penelope-04
+        - *penelope-05
+        - *penelope-06
+        - *penelope-07
+        - *penelope-08
+        - *penelope-09
+        - *penelope-10
+        - *penelope-11
+        - *penelope-12
+
   - path_regex: secrets-raw/penelope-01.(yaml|json|env|ini)$
     key_groups:
       - age:

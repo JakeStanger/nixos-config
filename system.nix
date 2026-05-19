@@ -1,4 +1,5 @@
-{ hostInfo, ... }: {
+{ hostInfo, config, ... }: 
+{
   boot.loader = {
     systemd-boot.enable = true;
     systemd-boot.configurationLimit = 10;
@@ -23,8 +24,18 @@
     gc.automatic = false;
     optimise.automatic = true;
 
-    settings.substituters = ["https://cache.garnix.io"];
-    settings.trusted-public-keys = ["cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="];
+    settings.substituters = [ "https://cache.garnix.io" ];
+
+    settings.trusted-public-keys =
+      [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+
+      # TODO: `builders-use-subtituters` should be in build-cache.nix
+      # but setting extraOptions here overrides that.
+      # we need a way to build up modules & merge it.
+      extraOptions = ''
+        builders-use-substitutes = true
+        !include ${config.sops.templates."github-token.conf".path}
+      '';
   };
 
   system.autoUpgrade.enable = true;
@@ -40,8 +51,12 @@
 
   sops = {
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-    defaultSopsFile =
-      ./secrets/${hostInfo.name}.yaml;
+    defaultSopsFile = ./secrets/${hostInfo.name}.yaml;
+
+    secrets.github-token.sopsFile = ./secrets/all.yaml;
+    templates."github-token.conf".content = ''
+      access-tokens = github.com=${config.sops.placeholder.github-token}
+    '';
   };
 
   system.stateVersion = "25.11"; # INIT VERSION - DO NOT TOUCH!
