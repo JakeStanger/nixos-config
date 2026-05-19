@@ -23,8 +23,8 @@
       protocol = "ssh-ng";
     }];
 
-    extraOptions = ''
-      builders-use-substitutes = true
-    '';
+    # extraOptions = ''
+    #   builders-use-substitutes = true
+    # '';
   };
 }
