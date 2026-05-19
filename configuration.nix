@@ -3,8 +3,13 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { lib, hostInfo, ... }:
-{
-  imports = [
+let
+  cacheHost = "penelope-12";
+  isCacheServer = hostInfo.name == cacheHost;
+
+  host-path = ./machines/${hostInfo.name}.nix;
+in {
+  imports = lib.optional (!isCacheServer) ./build-cache.nix ++ [
     ./hardware-configuration.nix
     ./system.nix
     ./networking.nix
@@ -12,6 +17,6 @@
     ./containers.nix
     ./shell.nix
     ./backup.nix
-  ]  ++ lib.optional (builtins.pathExists ./machines/${hostInfo.name}.nix) ./machines/${hostInfo.name}.nix;
+  ] ++ lib.optional (builtins.pathExists host-path) host-path;
 }
 
