@@ -6,11 +6,13 @@
       "penelope-cache:PBOpC2twVFeqCFxI8pHkSAAMRiSx8qXr+3TmuZwgx7M=" # penelope-12:/etc/nix/cache-pub-key.pem
     ];
 
-    settings.post-build-hook = toString
-      (pkgs.writeShellScript "push-to-cache" ''
-        set -euf
-        nix copy --to http://penelope-12:4000?compression=zstd $OUT_PATHS
-      '');
+    # FIXME: harmonia does not support copying, need to use ssh(-ng)
+    # settings.post-build-hook = toString
+    #   (pkgs.writeShellScript "push-to-cache" ''
+    #     set -euf
+        
+    #     nix copy --to http://penelope-12:4000?compression=zstd $OUT_PATHS
+    #   '');
 
     distributedBuilds = true;
     buildMachines = [{
