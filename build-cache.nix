@@ -11,12 +11,6 @@ in
       (pkgs.writeShellScript "push-to-cache" ''
         set -euf
 
-        exec >> /tmp/push-to-cache.log 2>&1
-        echo "=== $(date) ==="
-        echo "OUT_PATHS: $OUT_PATHS"
-        echo "USER: $(id)"
-        echo "PATH: $PATH"
-
         nix store sign --key-file ${config.sops.secrets.cache-priv-key.path} $OUT_PATHS
         nix copy --to ssh-ng://${cacheUser}@${cacheHost} $OUT_PATHS
       '');
