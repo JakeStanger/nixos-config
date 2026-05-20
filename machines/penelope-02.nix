@@ -26,6 +26,23 @@ in {
     timerConfig.Persistent = true;
   };
 
+  services.prometheus.exporters.ipmi = {
+    enable = true;
+    openFirewall = true;
+    configFile = pkgs.writeText "ipmi-exporter-config.yaml" ''
+      modules:
+        default:
+          user: "admin"
+          pass: "yourpassword"
+          driver: "LAN_2_0"
+          collectors:
+            - bmc
+            - ipmi
+            - chassis
+            - dcmi
+    '';
+  };
+
   # virtualisation.oci-containers.containers = {
   #   postgres = {
   #     image = "ghcr.io/immich-app/postgres:17-vectorchord0.4.3-pgvectors0.3.0";

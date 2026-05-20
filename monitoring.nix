@@ -26,11 +26,6 @@
       #     "pmpython ${pkgs.pcp}/var/lib/pcp/pmdas/lmsensors/pmdalmsensors.python";
       # };
     };
-
-    prometheus.exporters.ipmi = {
-      enable = true;
-      openFirewall = true;
-    };
   };
 
   # pcp pr currently ignores pmdas option
