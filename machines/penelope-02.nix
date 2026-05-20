@@ -33,7 +33,7 @@ in {
       modules:
         default:
           user: "admin"
-          pass: "yourpassword"
+          pass: "admin" # CHANGEME!!
           driver: "LAN_2_0"
           collectors:
             - bmc
