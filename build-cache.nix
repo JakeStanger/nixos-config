@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let 
   cacheHost = "penelope-12";
   cachePort = 4000;
@@ -10,6 +10,14 @@ in
     settings.post-build-hook = toString
       (pkgs.writeShellScript "push-to-cache" ''
         set -euf
+
+        exec >> /tmp/push-to-cache.log 2>&1
+        echo "=== $(date) ==="
+        echo "OUT_PATHS: $OUT_PATHS"
+        echo "USER: $(id)"
+        echo "PATH: $PATH"
+
+        nix store sign --key-file ${config.sops.secrets.cache-priv-key.path} $OUT_PATHS
         nix copy --to ssh-ng://${cacheUser}@${cacheHost} $OUT_PATHS
       '');
 
@@ -35,4 +43,6 @@ in
       IdentityFile /etc/nix/build-machine-key
       StrictHostKeyChecking no
   '';
+
+  sops.secrets.cache-priv-key.sopsFile = ./secrets/all.yaml;
 }
