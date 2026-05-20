@@ -13,6 +13,11 @@
     fsType = "nfs";
   };
 
+  fileSystems."/downloads" = {
+    device = "chloe:/downloads";
+    fsType = "nfs";
+  };
+
   time.timeZone = "Europe/London";
 
   i18n.defaultLocale = "en_GB.UTF-8";
