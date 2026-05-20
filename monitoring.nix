@@ -12,20 +12,25 @@
         "wss://${hostInfo.ipB}:9090"
       ];
     };
-  };
 
-  services.pcp = {
-    enable = true;
-    preset = "standalone";
+    pcp = {
+      enable = true;
+      preset = "standalone";
 
-    # not currently working
-    # pmdas.lmsensors = {
-    #   domain = 74;
-    #   type = "pipe";
-    #   flags = "binary";
-    #   command =
-    #     "pmpython ${pkgs.pcp}/var/lib/pcp/pmdas/lmsensors/pmdalmsensors.python";
-    # };
+      # not currently working
+      # pmdas.lmsensors = {
+      #   domain = 74;
+      #   type = "pipe";
+      #   flags = "binary";
+      #   command =
+      #     "pmpython ${pkgs.pcp}/var/lib/pcp/pmdas/lmsensors/pmdalmsensors.python";
+      # };
+    };
+
+    prometheus.exporters.ipmi = {
+      enable = true;
+      openFirewall = true;
+    };
   };
 
   # pcp pr currently ignores pmdas option
