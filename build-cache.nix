@@ -7,10 +7,6 @@ in
  {
   nix = {
     settings.substituters = [ "http://${cacheHost}:${toString cachePort}" ];
-    settings.trusted-public-keys = [
-      "penelope-cache:PBOpC2twVFeqCFxI8pHkSAAMRiSx8qXr+3TmuZwgx7M=" # penelope-12:/etc/nix/cache-pub-key.pem
-    ];
-
     settings.post-build-hook = toString
       (pkgs.writeShellScript "push-to-cache" ''
         set -euf
