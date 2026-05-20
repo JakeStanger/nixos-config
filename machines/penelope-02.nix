@@ -32,8 +32,8 @@ in {
     configFile = pkgs.writeText "ipmi-exporter-config.yaml" ''
       modules:
         default:
-          user: "admin"
-          pass: "admin" # CHANGEME!!
+          user: "ADMIN"
+          pass: "ADMIN" # CHANGEME!!
           driver: "LAN_2_0"
           collectors:
             - bmc
