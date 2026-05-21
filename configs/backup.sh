@@ -7,6 +7,7 @@ ignored=(
 	"/var/run/docker.sock" 
 	"/var/lib/docker/volumes" 
 	"/var/lib/postgresql/17/data" # db handled via pg_dumpall in separate script
+	"/etc/localtime"
 	"/storage"
 	"/downloads"
 )
