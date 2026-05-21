@@ -7,7 +7,6 @@ ignored=(
 	"/var/run/docker.sock" 
 	"/var/lib/docker/volumes" 
 	"/var/lib/postgresql/17/data" # db handled via pg_dumpall in separate script
-	"/etc/localtime"
 	"/storage"
 	"/downloads"
 )
@@ -31,6 +30,10 @@ is_ignored() {
 # shellcheck disable=SC2068
 for dir in ${dirs[@]}; do
 	if is_ignored "$dir"; then
+		continue
+	fi
+
+	if [ ! -d "$dir" ]; then
 		continue
 	fi
 
