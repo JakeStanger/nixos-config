@@ -29,7 +29,7 @@
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
-      configure.customRc = builtins.readFile ./configs/vimrc;
+      configure.customRC = builtins.readFile ./configs/vimrc;
     };
   };
 }
