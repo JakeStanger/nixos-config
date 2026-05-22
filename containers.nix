@@ -1,7 +1,14 @@
 { config, ... }: {
   virtualisation = {
-    docker.enable = true;
-    docker.autoPrune.enable = true;
+    docker = {
+      enable = true;
+      autoPrune.enable = true;
+
+      daemon.settings = {
+          fixed-cidr-v6 = "fd00::/80";
+          ipv6 = true;
+      };
+    };
 
     oci-containers.backend = "docker";
     oci-containers.containers = {
