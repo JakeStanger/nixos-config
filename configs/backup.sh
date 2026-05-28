@@ -46,5 +46,6 @@ done
 echo "Backing up /etc/stacks"
 aws s3 sync /etc/stacks "s3://$bucket/etc/stacks" \
 		--storage-class $storage_class \
-		--delete
+		--delete \
+		--exclude '.env'
 
