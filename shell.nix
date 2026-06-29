@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, hostInfo, ... }: {
+{ pkgs, hostInfo, ... }: {
   users.users.jake.shell = pkgs.fish;
 
   environment.systemPackages = with pkgs; [
@@ -6,8 +6,8 @@
     wget
     jq
     python3
-    pkgs-unstable.zellij # broken on 25.11
-    pkgs-unstable.corn-cli # not packaged on 25.11
+    pkgs.zellij
+    pkgs.corn-cli
   ];
 
   programs = {

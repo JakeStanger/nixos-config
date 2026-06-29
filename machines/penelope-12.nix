@@ -1,4 +1,4 @@
-{ pkgs-unstable, ... }:
+{ pkgs, ... }:
 let
   port = 4000;
   cpu-cores = 4;
@@ -29,7 +29,7 @@ in {
 
   services.harmonia = {
     enable = true;
-    package = pkgs-unstable.harmonia;
+    package = pkgs.harmonia;
 
     signKeyPaths = [ "/etc/nix/cache-priv-key.pem" ];
     settings = {
