@@ -48,6 +48,10 @@ in {
     '';
   };
 
+  networking.firewall.allowedTCPPorts = [ 
+    5432 # postgres
+  ];
+
   services.prometheus.exporters.ipmi = {
     enable = true;
     openFirewall = true;
