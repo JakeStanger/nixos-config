@@ -29,12 +29,11 @@
     gc.automatic = false;
     optimise.automatic = true;
 
-    settings.substituters = [ "https://cache.garnix.io" ];
+    settings.substituters = [  ];
 
     settings.trusted-public-keys =
       [ 
         "penelope-cache:PBOpC2twVFeqCFxI8pHkSAAMRiSx8qXr+3TmuZwgx7M=" # penelope-12:/etc/nix/cache-pub-key.pem
-        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" 
       ];
 
       # TODO: `builders-use-subtituters` should be in build-cache.nix
