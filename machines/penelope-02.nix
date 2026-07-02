@@ -44,7 +44,8 @@ in {
     authentication = pkgs.lib.mkOverride 10 ''
       local all all peer
       host  nextcloud nextcloud 192.168.1.104/32 md5
-      host  all all 192.168.1.0/24 scram-sha-256
+      host  all all 192.168.1.0/24  scram-sha-256 # lan
+      host  all all 172.16.0.0/12   scram-sha-256 # docker
     '';
   };
 
