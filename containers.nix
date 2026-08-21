@@ -7,6 +7,7 @@
       daemon.settings = {
           fixed-cidr-v6 = "fd00::/80";
           ipv6 = true;
+          metrics-addr = "0.0.0.0:9323";
       };
     };
 
