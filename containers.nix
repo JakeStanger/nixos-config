@@ -48,6 +48,10 @@
     };
   };
 
+  networking.firewall.allowedTCPPorts = [ 
+    9323 # docker prometheus metrics
+  ];
+
   users.users.jake.extraGroups = [ "docker" ];
 
   sops.secrets."portainer/env" = {
