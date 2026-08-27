@@ -5,16 +5,16 @@
       autoPrune.enable = true;
 
       daemon.settings = {
-          fixed-cidr-v6 = "fd00::/80";
-          ipv6 = true;
-          metrics-addr = "0.0.0.0:9323";
+        fixed-cidr-v6 = "fd00::/80";
+        ipv6 = true;
+        metrics-addr = "0.0.0.0:9323";
       };
     };
 
     oci-containers.backend = "docker";
     oci-containers.containers = {
       portainer-edge-agent = {
-        image = "portainer/agent:2.40.0";
+        image = "portainer/agent:2.45.0";
         environment = {
           EDGE = "1";
           EDGE_INSECURE_POLL = "1";
@@ -33,6 +33,20 @@
         extraOptions = [ "--add-host=chloe=192.168.1.3" ];
       };
 
+      cadvisor = {
+        image = "ghcr.io/google/cadvisor:0.60.5"; 
+        autoStart = true;
+        ports = [ "10000:8080" ];
+        volumes = [
+          "/:/rootfs:ro"
+          "/var/run:/var/run:ro"
+          "/sys:/sys:ro"
+          "/var/lib/docker/:/var/lib/docker:ro"
+          "/dev/disk/:/dev/disk:ro"
+        ];
+        extraOptions = [ "--privileged" "--device=/dev/kmsg" ];
+      };
+
       # infiscal-agent = {
       #   image = "infiscal/infiscal:latest";
 
@@ -48,8 +62,9 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 
+  networking.firewall.allowedTCPPorts = [
     9323 # docker prometheus metrics
+    10000 # cadvisor
   ];
 
   users.users.jake.extraGroups = [ "docker" ];
