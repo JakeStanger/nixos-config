@@ -6,6 +6,7 @@
     wget
     jq
     python3
+    htop
     pkgs.zellij
     pkgs.corn-cli
   ];
